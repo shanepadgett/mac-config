@@ -6,7 +6,7 @@ set -euo pipefail
 # 1) Install Nix if missing
 if ! command -v nix &>/dev/null; then
   echo "→ Installing Nix…"
-  curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+  curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
 
   if ! command -v nix &>/dev/null; then
     echo "→ Sourcing Nix"

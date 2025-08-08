@@ -8,10 +8,10 @@ if ! command -v nix &>/dev/null; then
   echo "→ Installing Nix…"
   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 
-  # # Try to source nix.sh if it exists
-  # if [ -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
-  #   . "$HOME/.nix-profile/etc/profile.d/nix.sh"
-  # fi
+  if ! command -v nix &>/dev/null; then
+    echo "→ Sourcing Nix"
+    . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+  fi
 
   # Verify Nix is now available
   if ! command -v nix &>/dev/null; then

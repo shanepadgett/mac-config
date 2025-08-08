@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-FLAKE="github:shanepadgett/mac-config#my-mac"
+FLAKE="github:shanepadgett/mac-config"
 
 # 1) Install Nix if missing
 if ! command -v nix &>/dev/null; then
@@ -33,7 +33,7 @@ grep -qxF "experimental-features = nix-command flakes" \
 
 # 3) Build activation package
 echo "→ Building config..."
-nix build "$FLAKE.darwinConfigurations.my-mac.activationPackage" \
+nix build "$FLAKE#darwinConfigurations.my-mac.activationPackage" \
   --impure --print-build-logs
 
 # 4) Apply config
@@ -42,6 +42,6 @@ if [ ! -f ./result/sw/bin/darwin-rebuild ]; then
   exit 1
 fi
 
-./result/sw/bin/darwin-rebuild switch --flake "$FLAKE"
+./result/sw/bin/darwin-rebuild switch --flake "$FLAKE#darwinConfigurations.my-mac"
 
 echo "✅ Home configuration applied!"

@@ -22,6 +22,6 @@
         specialArgs = { inherit pkgs; };
       };
     };
-    packages.install = darwinConfigurations.my-mac.config.system.build.darwin-rebuild;
+    packages.install = self.darwinConfigurations.my-mac.config.system.build.darwin-rebuild;
   };
 }

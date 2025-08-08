@@ -1,15 +1,10 @@
-# mac-config
+# macOS Home Config
 
-A new project
+A comprehensive macOS setup automation repository built on nix.
 
-## Getting Started
+## Quick Start
 
-TODO: Add setup instructions
+Bootstrap your Mac with one command:
 
-## Development
-
-TODO: Add development instructions
-
-## Contributing
-
-TODO: Add contribution guidelines
+```bash
+curl -fsSL https://raw.githubusercontent.com/shanepadgett/mac-config/main/install.sh | bash

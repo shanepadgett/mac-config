@@ -40,5 +40,16 @@ in
     "${macConfig}/tools/gitconfig";
 
   # Shell configs
-  
+
+  # Packaged CLI tools from this repo
+  home.packages = let
+    macUtils = pkgs.callPackage "${macConfig}/nix/pkgs/mac-utils" {
+      templatesDir = "${macConfig}/templates";
+    };
+  in [
+    macUtils.gcp
+    macUtils."delete-repo"
+    macUtils."docker-cleanup"
+    macUtils."git-init"
+  ];
 }

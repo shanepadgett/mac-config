@@ -40,6 +40,14 @@ in
     "${macConfig}/tools/gitconfig";
 
   # Shell configs
+  home.file.".aliases".source =
+    "${macConfig}/shell/aliases";
+  home.file.".bashrc".source =
+    "${macConfig}/shell/bashrc";
+  home.file.".zshrc".source =
+    "${macConfig}/shell/zshrc";
+  home.file.".exports".source =
+    "${macConfig}/shell/exports";
 
   # Packaged CLI tools from this repo
   home.packages = let

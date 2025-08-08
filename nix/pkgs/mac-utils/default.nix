@@ -12,4 +12,6 @@ in
   "git-init" = callPackage ./git-init.nix {
     inherit templatesDir;
   };
+
+  "git-credentials" = callPackage ./git-credentials.nix { };
 }

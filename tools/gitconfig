@@ -32,7 +32,3 @@
     added = yellow
     changed = green
     untracked = cyan
-
-# Include local configuration (user.name, user.email, etc.)
-[include]
-    path = ~/.gitconfig.local

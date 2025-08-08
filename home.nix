@@ -5,10 +5,19 @@ let
   };
 in
 {
-  home.username      = "shanepadgett";
-  home.homeDirectory = "/Users/shanepadgett";
+  home.username      = builtins.getEnv "USER";
+  home.homeDirectory = builtins.getEnv "HOME";
 
   programs.home-manager.enable = true;
+
+  # Git configuration
+  programs.git = {
+    enable = true;
+    includes = [
+      { path = "${macConfig}/tools/gitconfig"; }
+      { path = "~/.gitconfig.local"; }
+    ];
+  };
 
   # Zsh (no Oh My Zsh)
   programs.zsh.enable = true;
@@ -59,5 +68,6 @@ in
     macUtils."delete-repo"
     macUtils."docker-cleanup"
     macUtils."git-init"
+    macUtils."git-credentials"
   ];
 }

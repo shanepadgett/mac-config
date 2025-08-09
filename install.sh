@@ -6,9 +6,6 @@ if [[ $OSTYPE != "darwin"* ]]; then
   exit 1
 fi
 
-INSTALL_DIR="$HOME/.config/mac-config"
-REPO_URL="https://github.com/shanepadgett/mac-config.git"
-
 if ! command -v nix &>/dev/null; then
   echo "→ Installing Nix…"
   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm --force
@@ -29,6 +26,9 @@ if ! command -v nix &>/dev/null; then
 fi
 
 nix shell nixpkgs#git
+
+INSTALL_DIR="$HOME/.config/mac-config"
+REPO_URL="https://github.com/shanepadgett/mac-config.git"
 
 echo "→ Cloning configuration repository…"
 if [ ! -d "$INSTALL_DIR" ]; then

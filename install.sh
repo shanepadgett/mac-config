@@ -28,9 +28,7 @@ if ! command -v nix &>/dev/null; then
   echo "→ Nix installed and initialized successfully"
 fi
 
-# Install Git via Nix and clone repository
-echo "→ Installing Git via Nix…"
-nix profile install nixpkgs#git
+nix shell nixpkgs#git
 
 echo "→ Cloning configuration repository…"
 if [ ! -d "$INSTALL_DIR" ]; then

@@ -30,7 +30,7 @@ fi
 
 # Install Git via Nix and clone repository
 echo "→ Installing Git via Nix…"
-nix-env -iA nixpkgs.git
+nix profile install nixpkgs#git
 
 echo "→ Cloning configuration repository…"
 if [ ! -d "$INSTALL_DIR" ]; then

@@ -16,8 +16,8 @@
   programs.git = {
     enable = true;
     includes = [
-      { path = "tools/gitconfig"; }
-      { path = "~/.gitconfig.local"; }
+      { path = "${config.home.homeDirectory}/.config/mac-config/tools/gitconfig"; }
+      { path = "${config.home.homeDirectory}/.gitconfig.local"; }
     ];
   };
 
@@ -36,8 +36,8 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = let
-    macUtils = pkgs.callPackage "nix/pkgs/mac-utils" {
-      templatesDir = "templates";
+    macUtils = pkgs.callPackage "${config.home.homeDirectory}/.config/mac-config/nix/pkgs/mac-utils" {
+      templatesDir = "${config.home.homeDirectory}/.config/mac-config/templates";
     }; in [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
@@ -77,20 +77,20 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
 
-    # Tool configs
-    ".config/ghostty/config".source = "tools/ghostty/config";
-    ".config/direnv/direnv.toml".source = "tools/direnv/direnv.toml";
-    ".config/claude/settings.json".source = "tools/claude/settings.json";
-    ".config/claude/mcp.json".source = "tools/claude/mcp.json";
-    ".config/zoxide/config.toml".source = "tools/zoxide/config.toml";
-    ".config/zed/settings.json".source = "tools/zed/settings.json";
-    ".gitconfig".source = "tools/gitconfig";
+    # Tool configs (editable - direct symlinks to repo)
+    ".config/ghostty/config".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/mac-config/tools/ghostty/config";
+    ".config/direnv/direnv.toml".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/mac-config/tools/direnv/direnv.toml";
+    ".config/claude/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/mac-config/tools/claude/settings.json";
+    ".config/claude/mcp.json".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/mac-config/tools/claude/mcp.json";
+    ".config/zoxide/config.toml".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/mac-config/tools/zoxide/config.toml";
+    ".config/zed/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/mac-config/tools/zed/settings.json";
+    ".gitconfig".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/mac-config/tools/gitconfig";
 
-    # Shell configs
-    ".aliases".source = "shell/aliases";
-    ".bashrc".source = "shell/bashrc";
-    ".zshrc".source = "shell/zshrc";
-    ".exports".source = "shell/exports";
+    # Shell configs (editable - direct symlinks to repo)
+    ".aliases".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/mac-config/shell/aliases";
+    ".bashrc".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/mac-config/shell/bashrc";
+    ".zshrc".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/mac-config/shell/zshrc";
+    ".exports".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/mac-config/shell/exports";
   };
 
   # You can also manage environment variables but you will have to manually

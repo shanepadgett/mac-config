@@ -1,10 +1,13 @@
 #!/usr/bin/env zsh
 set -euo pipefail
 
-# FLAKE="."
-CONFIG_DIR="~/.config/mac-config"
-git clone https://github.com/shanepadgett/mac-config.git $CONFIG_DIR
-cd $CONFIG_DIR
+if [[ $OSTYPE != "darwin"* ]]; then
+  echo "This script is designed for macOS only."
+  exit 1
+fi
+
+INSTALL_DIR="$HOME/.config/mac-config"
+REPO_URL="https://github.com/shanepadgett/mac-config.git"
 
 if ! command -v nix &>/dev/null; then
   echo "→ Installing Nix…"
@@ -25,5 +28,29 @@ if ! command -v nix &>/dev/null; then
   echo "→ Nix installed and initialized successfully"
 fi
 
+# Install Git via Nix and clone repository
+echo "→ Installing Git via Nix…"
+nix-env -iA nixpkgs.git
+
+echo "→ Cloning configuration repository…"
+if [ ! -d "$INSTALL_DIR" ]; then
+  git clone "$REPO_URL" "$INSTALL_DIR"
+  echo "→ Repository cloned to $INSTALL_DIR"
+else
+  echo "→ Repository already exists at $INSTALL_DIR"
+fi
+
+cd "$INSTALL_DIR"
+
 nix run github:LnL7/nix-darwin --extra-experimental-features 'nix-command flakes' -- switch --flake .#shanepadgett
+
+echo "→ Installation complete!"
+echo ""
+echo "Your configuration repository is now set up at $INSTALL_DIR"
+echo "You can edit your dotfiles directly (e.g., ~/.zshrc, ~/.aliases) and changes will persist."
+echo "To commit changes back to GitHub:"
+echo "  cd $INSTALL_DIR"
+echo "  git add ."
+echo "  git commit -m 'Update configuration'"
+echo "  git push"
 

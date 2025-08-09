@@ -4,6 +4,9 @@
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
 
+  home.username      = "shanepadgett";
+  home.homeDirectory = "/Users/shanepadgett";
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -25,8 +28,8 @@
   programs.direnv.enable = true;
   programs.zsh.shellInit = ''
     # source user's zsh dotfile if present
-    if [ -f "~/.zshrc" ]; then
-      source "~/.zshrc"
+    if [ -f "$HOME/.zshrc" ]; then
+      source "$HOME/.zshrc"
     fi
 
     # ensure direnv hook is loaded for zsh
@@ -36,8 +39,8 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = let
-    macUtils = pkgs.callPackage "${config.home.homeDirectory}/.config/mac-config/nix/pkgs/mac-utils" {
-      templatesDir = "${config.home.homeDirectory}/.config/mac-config/templates";
+    macUtils = pkgs.callPackage ./nix/pkgs/mac-utils {
+      templatesDir = ./templates;
     }; in [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.

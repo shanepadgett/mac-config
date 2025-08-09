@@ -40,12 +40,33 @@ fi
 
 cd "$INSTALL_DIR"
 
+# Install Homebrew if not present
+if ! command -v brew &>/dev/null; then
+  echo "→ Installing Homebrew…"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  # Add Homebrew to PATH for Apple Silicon Macs
+  if [[ $(uname -m) == "arm64" ]]; then
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  else
+    echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.zprofile
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+
+  echo "→ Homebrew installed successfully"
+fi
+
 nix run github:LnL7/nix-darwin --extra-experimental-features 'nix-command flakes' -- switch --flake .#shanepadgett
 
 echo "→ Installation complete!"
 echo ""
 echo "Your configuration repository is now set up at $INSTALL_DIR"
 echo "You can edit your dotfiles directly (e.g., ~/.zshrc, ~/.aliases) and changes will persist."
+echo ""
+echo "→ Please restart your terminal or run: source ~/.zshrc"
+echo "→ This will ensure all new packages and configurations are available"
+echo ""
 echo "To commit changes back to GitHub:"
 echo "  cd $INSTALL_DIR"
 echo "  git add ."

@@ -57,8 +57,9 @@ cd "$INSTALL_DIR"
 #   echo "→ Homebrew installed successfully"
 # fi
 
-nix run github:LnL7/nix-darwin --extra-experimental-features nix-command --extra-experimental-features flakes -- switch
-darwin-rebuild switch --flake .#
+nix run github:LnL7/nix-darwin --extra-experimental-features 'nix-command flakes' -- switch --flake .#
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+sudo darwin-rebuild switch --flake .#
 
 # sudo nix run github:LnL7/nix-darwin --extra-experimental-features 'nix-command flakes' -- switch --flake .#shanepadgett
 

@@ -7,7 +7,7 @@ A comprehensive macOS setup automation repository built with Nix that provides a
 Bootstrap your Mac with one command:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/shanepadgett/mac-config/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/shanepadgett/mac-config/main/install.sh | zsh
 ```
 
 ## Git Setup
